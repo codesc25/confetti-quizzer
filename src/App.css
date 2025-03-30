@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +40,12 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, #8B5CF6, #D946EF, #0EA5E9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
 }
