@@ -24,9 +24,9 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const success = new Audio('/success.mp3');
 
     // Set volume
-    correct.volume = 0.5;
-    incorrect.volume = 0.5;
-    success.volume = 0.5;
+    correct.volume = 0.7; // Increased volume
+    incorrect.volume = 0.7; // Increased volume
+    success.volume = 0.7; // Increased volume
 
     // Store references
     setCorrectSound(correct);
@@ -34,9 +34,20 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setSuccessSound(success);
 
     // Preload the sounds
-    correct.load();
-    incorrect.load();
-    success.load();
+    const preloadSounds = async () => {
+      try {
+        await correct.load();
+        await incorrect.load();
+        await success.load();
+        
+        // Test that sounds loaded properly
+        console.log("Sound files loaded successfully");
+      } catch (error) {
+        console.error("Error loading sound files:", error);
+      }
+    };
+    
+    preloadSounds();
     
     // Cleanup function to release audio resources
     return () => {
@@ -49,6 +60,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const playCorrect = () => {
     if (correctSound && !isMuted) {
       correctSound.currentTime = 0;
+      console.log("Playing correct sound");
       correctSound.play().catch(error => console.error("Error playing correct sound:", error));
     }
   };
@@ -56,6 +68,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const playIncorrect = () => {
     if (incorrectSound && !isMuted) {
       incorrectSound.currentTime = 0;
+      console.log("Playing incorrect sound");
       incorrectSound.play().catch(error => console.error("Error playing incorrect sound:", error));
     }
   };
@@ -63,6 +76,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const playSuccess = () => {
     if (successSound && !isMuted) {
       successSound.currentTime = 0;
+      console.log("Playing success sound");
       successSound.play().catch(error => console.error("Error playing success sound:", error));
     }
   };

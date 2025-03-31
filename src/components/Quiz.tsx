@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -39,7 +38,11 @@ const Quiz: React.FC<QuizProps> = ({ questions, onComplete, onBack }) => {
     if (selectedOption?.isCorrect) {
       setScore(prev => prev + 1);
       setShowConfetti(true);
-      playCorrect();
+      
+      // Play correct sound with a slight delay to avoid sound cutoff
+      setTimeout(() => {
+        playCorrect();
+      }, 50);
       
       toast({
         title: "Resposta Correta! 🎉",
@@ -47,7 +50,11 @@ const Quiz: React.FC<QuizProps> = ({ questions, onComplete, onBack }) => {
         variant: "default",
       });
     } else {
-      playIncorrect();
+      // Play incorrect sound with a slight delay
+      setTimeout(() => {
+        playIncorrect();
+      }, 50);
+      
       const correctOption = currentQuestion.options.find(option => option.isCorrect);
       
       toast({
@@ -65,8 +72,12 @@ const Quiz: React.FC<QuizProps> = ({ questions, onComplete, onBack }) => {
     
     if (isLastQuestion) {
       setQuizCompleted(true);
-      onComplete(score + (selectedOptionId && currentQuestion.options.find(o => o.id === selectedOptionId)?.isCorrect ? 1 : 0), questions.length);
-      playSuccess();
+      onComplete(score, questions.length);
+      
+      // Play success sound when quiz is completed with a slight delay
+      setTimeout(() => {
+        playSuccess();
+      }, 100);
     } else {
       setCurrentQuestionIndex(prev => prev + 1);
     }
