@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { QuizCategory } from '@/data/quizData';
-import { Pencil, ScrollText, Flask, Globe, PlusCircle } from 'lucide-react';
+import { Pencil, ScrollText, Beaker, Globe, PlusCircle } from 'lucide-react';
 
 interface QuizCardProps {
   category: QuizCategory;
@@ -18,7 +18,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ category, onSelect }) => {
       case 'scroll':
         return <ScrollText className="h-6 w-6" />;
       case 'flask':
-        return <Flask className="h-6 w-6" />;
+        return <Beaker className="h-6 w-6" />;
       case 'globe':
         return <Globe className="h-6 w-6" />;
       default:
